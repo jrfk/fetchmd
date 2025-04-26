@@ -21,13 +21,14 @@ all = [
     "aiofiles",
     "pytest",
     "pytest-asyncio",
+    "lxml[html_clean]", # readability-lxml が内部で使う lxml.html.clean の依存関係
 ]
 # 開発用依存関係 (テストなど)
 dev = ["fetchmd[all]"]
 
 [project.scripts]
 # cli.py 内の Typer アプリケーション 'app' を指定
-fetchmd = "fetchmd:app"
+fetchmd = "fetchmd.cli:app"
 
 [tool.hatch.build.targets.wheel]
 # パッケージに含めるディレクトリを指定
