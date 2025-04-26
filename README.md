@@ -49,8 +49,14 @@ make run URL="https://example.com" OUT=./markdown_files
 You can also invoke the CLI directly.
 
 ```bash
-python -m fetchmd https://example.com https://another-site.org/page --out ./output --concurrency 10
+fetchmd https://example.com https://another-site.org/page --out ./output --concurrency 10
 ```
+
+
+```bash
+uvx fetchmd https://example.com https://another-site.org/page --out ./output --concurrency 10
+```
+
 
 **3. Using the VS Code Task:**
 
