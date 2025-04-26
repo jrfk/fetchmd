@@ -1,7 +1,8 @@
 import asyncio
-import httpx
 import re  # 正規表現モジュールをインポート
 from typing import Final
+
+import httpx
 
 # デフォルトのユーザーエージェント文字列
 _DEFAULT_UA: Final = "fetchmd/0.1 (+https://github.com/jrfk/fetchmd)"
@@ -56,15 +57,17 @@ class Fetcher:
         # 正規表現で http:// または https:// の後にホスト名が続くかチェック
         # 簡単なチェックであり、完全なURLバリデーションではない点に注意
         if not url or not re.match(r"^https?://.+", url):
-            raise ValueError(f"Invalid URL provided (must start with http:// or https:// followed by a host): {url}")
+            # URLの検証エラーメッセージ
+            msg = "Invalid URL provided (must start with http:// or https:// followed by a host)"
+            raise ValueError(f"{msg}: {url}")
 
-        async with self._sem:  # 同時実行数を制限
-            async with httpx.AsyncClient(
-                timeout=self._timeout,
-                follow_redirects=True,  # リダイレクトを追跡
-                headers=self._headers,  # カスタムヘッダーを設定
-                http2=True,             # HTTP/2 を有効化 (可能な場合)
-            ) as client:
+        # 同時実行数を制限し、HTTPクライアントを生成
+        async with self._sem, httpx.AsyncClient(
+            timeout=self._timeout,
+            follow_redirects=True,  # リダイレクトを追跡
+            headers=self._headers,  # カスタムヘッダーを設定
+            http2=True,             # HTTP/2 を有効化 (可能な場合)
+        ) as client:
                 try:
                     response = await client.get(url)
                     response.raise_for_status()  # 4xx/5xxエラーがあれば例外を送出

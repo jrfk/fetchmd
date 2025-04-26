@@ -1,5 +1,6 @@
-import html_to_markdown
 import logging
+
+import html_to_markdown
 
 logger = logging.getLogger(__name__)
 

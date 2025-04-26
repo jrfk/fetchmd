@@ -22,6 +22,7 @@ all = [
     "pytest",
     "pytest-asyncio",
     "lxml[html_clean]", # readability-lxml が内部で使う lxml.html.clean の依存関係
+    "ruff", # for linting
 ]
 # 開発用依存関係 (テストなど)
 dev = ["fetchmd[all]"]
@@ -33,3 +34,17 @@ fetchmd = "fetchmd.cli:app"
 [tool.hatch.build.targets.wheel]
 # パッケージに含めるディレクトリを指定
 packages = ["fetchmd"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py310"
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "B", "C4", "ARG", "SIM"]
+ignore = []
+
+[tool.ruff.lint.isort]
+known-first-party = ["fetchmd"]
+
+[tool.ruff.lint.flake8-bugbear]
+extend-immutable-calls = ["typer.Option", "typer.Argument"]

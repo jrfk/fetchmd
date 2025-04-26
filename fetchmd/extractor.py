@@ -1,5 +1,6 @@
-from readability import Document
 import logging
+
+from readability import Document
 
 logger = logging.getLogger(__name__)
 
