@@ -23,10 +23,15 @@ jobs:
       uses: astral-sh/setup-uv@v6
         
     - name: Install dependencies
-      run: uv pip install -e ".[all]"
+      run: |
+        uv venv
+        source .venv/bin/activate
+        uv pip install -e ".[all]"
     
     - name: Lint with Ruff
-      run: ruff check .
+      run: |
+        source .venv/bin/activate
+        make lint
       
   test:
     runs-on: ubuntu-latest
@@ -45,13 +50,20 @@ jobs:
       uses: astral-sh/setup-uv@v6
     
     - name: Install dependencies
-      run: uv pip install -e ".[all]"
+      run: |
+        uv venv
+        source .venv/bin/activate
+        uv pip install -e ".[all]"
     
     - name: Test with pytest
-      run: pytest -q tests/
+      run: |
+        source .venv/bin/activate
+        make test
     
     - name: Test run with example.com
       run: |
-        python -m fetchmd run https://example.com --out out
+        source .venv/bin/activate
+        # URL変数を明示的に設定してmake runを実行
+        make run URL="https://example.com"
         # 出力ファイルが存在するか確認
         find out/example.com -name "*.md" -type f | grep .
