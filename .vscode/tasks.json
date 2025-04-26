@@ -1,0 +1,38 @@
+{
+  // See https://go.microsoft.com/fwlink/?LinkId=733558
+  // for the documentation about the tasks.json format
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Run fetchmd", // VS Code コマンドパレットに表示されるタスク名
+      "type": "shell", // シェルコマンドとして実行
+      "command": "make", // 実行するコマンド
+      "args": [
+        "run", // make のターゲット
+        "URL=\"${input:fetchUrl}\"" // ユーザー入力を URL 変数として渡す
+      ],
+      "group": {
+        "kind": "build", // ビルドタスクグループに属させる
+        "isDefault": true // Ctrl+Shift+B (Cmd+Shift+B) で実行されるデフォルトタスクにする
+      },
+      "presentation": {
+        "echo": true, // 実行コマンドをターミナルに表示
+        "reveal": "always", // タスク実行時にターミナルを常に表示
+        "focus": false, // ターミナルにフォーカスしない
+        "panel": "shared", // 既存の共有ターミナルを使用
+        "showReuseMessage": true, // 再利用メッセージを表示
+        "clear": false // 実行前にターミナルをクリアしない
+      },
+      "problemMatcher": [] // このタスクでは問題検出は不要
+    }
+  ],
+  // ユーザー入力を受け付けるための定義
+  "inputs": [
+    {
+      "id": "fetchUrl", // 上記 args で参照される ID
+      "type": "promptString", // 文字列入力を求めるプロンプト
+      "description": "Enter the URL(s) to fetch (space-separated)", // プロンプトの説明
+      "default": "https://example.com" // デフォルトで入力される値
+    }
+  ]
+}

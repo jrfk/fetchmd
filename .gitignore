@@ -1,19 +1,46 @@
-# ---- Python -------------------------------------------------
+# Python
 __pycache__/
 *.py[cod]
-*.pyd
-*.so
-*.egg-info/
-dist/
-build/
+*$py.class
 
-# ---- uv -----------------------------------------------------
-.uv/
+# Virtual environment
 .venv/
-python-installs/        # uv pyenv-styleローカル環境を置く場合
+venv/
+ENV/
+env/
+lib/
+lib64/
+include/
+Scripts/
+scripts/
+bin/
 
-# ---- Tools --------------------------------------------------
-# VSCode, PyCharm など IDE キャッシュ
-.vscode/
-.idea/
+# Build artifacts
+build/
+dist/
+*.egg-info/
+*.egg
+
+# Output directory
+out/
+
+# VS Code
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+*.code-workspace
+
+# macOS
 .DS_Store
+._*
+
+# Lock files (uv.lock は含めることが多いが、今回は一旦除外も検討可。含める方針で進める)
+# pip freeze output
+# requirements.txt # If not used as primary dependency file
+
+# IDE specific
+.idea/
+*.swp
+*.swo
