@@ -1,0 +1,19 @@
+# ---- Python -------------------------------------------------
+__pycache__/
+*.py[cod]
+*.pyd
+*.so
+*.egg-info/
+dist/
+build/
+
+# ---- uv -----------------------------------------------------
+.uv/
+.venv/
+python-installs/        # uv pyenv-styleローカル環境を置く場合
+
+# ---- Tools --------------------------------------------------
+# VSCode, PyCharm など IDE キャッシュ
+.vscode/
+.idea/
+.DS_Store
