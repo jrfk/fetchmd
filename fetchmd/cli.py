@@ -1,12 +1,14 @@
 import asyncio
-import typer
 import logging
 from typing import List, Optional
 
-# 相対インポートで他のモジュールを読み込む
-from .fetcher import Fetcher, _DEFAULT_CONCURRENCY, _DEFAULT_TIMEOUT
-from .extractor import extract_main
+import typer
+
 from .converter import html2md
+from .extractor import extract_main
+
+# 相対インポートで他のモジュールを読み込む
+from .fetcher import _DEFAULT_CONCURRENCY, _DEFAULT_TIMEOUT, Fetcher
 from .writer import save_markdown
 
 # 基本的なロギング設定
@@ -44,20 +46,30 @@ async def process_url(url: str, fetcher: Fetcher, out_dir: str):
         await save_markdown(markdown, url, out_dir)
 
     except Exception as e:
-        logger.error(f"Failed to process {url}: {e}", exc_info=False) # トレースバックは冗長なのでFalse
+        # トレースバックは冗長なのでFalse
+        logger.error(f"Failed to process {url}: {e}", exc_info=False)
 
 @app.command()
 def run(
     urls: List[str] = typer.Argument(..., help="List of URLs to fetch."),
     out_dir: str = typer.Option("out", "--out", "-o", help="Output directory for Markdown files."),
-    concurrency: int = typer.Option(_DEFAULT_CONCURRENCY, "--concurrency", "-c", help="Number of concurrent fetch requests."),
-    timeout: int = typer.Option(_DEFAULT_TIMEOUT, "--timeout", "-t", help="Request timeout in seconds."),
-    user_agent: Optional[str] = typer.Option(None, "--user-agent", "-ua", help="Custom User-Agent string."),
+    concurrency: int = typer.Option(
+        _DEFAULT_CONCURRENCY, "--concurrency", "-c",
+        help="Number of concurrent fetch requests."
+    ),
+    timeout: int = typer.Option(
+        _DEFAULT_TIMEOUT, "--timeout", "-t",
+        help="Request timeout in seconds."
+    ),
+    user_agent: Optional[str] = typer.Option(
+        None, "--user-agent", "-ua",
+        help="Custom User-Agent string."
+    ),
 ):
     """
     Fetches content from URLs, extracts main articles, converts to Markdown, and saves them.
     """
-    logger.info(f"Starting fetchmd run...")
+    logger.info("Starting fetchmd run...")
     logger.info(f"Output directory: {out_dir}")
     logger.info(f"Concurrency: {concurrency}")
     logger.info(f"Timeout: {timeout}")

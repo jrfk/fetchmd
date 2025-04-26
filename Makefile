@@ -9,10 +9,16 @@ PY=python -m
 install: ## Install dependencies using uv
 	uv pip install -e ".[all,dev]"
 
-# --- Testing ---
+# --- Testing & Linting ---
 
 test: ## Run tests using pytest
 	pytest -q tests/
+
+lint: ## Run ruff linter
+	ruff check .
+
+format: ## Auto-format code with ruff
+	ruff format .
 
 # --- Running the Application ---
 
@@ -31,4 +37,4 @@ help: ## Show this help message
 	@echo "Targets:"
 	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "  \033[36m%-15s\033[0m %s\n", $$1, $$2}'
 
-.PHONY: install test run help
+.PHONY: install test lint format run help

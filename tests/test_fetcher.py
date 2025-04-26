@@ -1,5 +1,7 @@
 import pytest
+
 from fetchmd.fetcher import Fetcher
+
 
 # pytest-asyncio が非同期テスト関数を認識するためのマーカー
 @pytest.mark.asyncio

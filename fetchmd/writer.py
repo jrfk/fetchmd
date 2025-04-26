@@ -1,10 +1,11 @@
-import aiofiles
 import logging
 import os
+import re
+from datetime import datetime
 from pathlib import Path
 from urllib.parse import urlparse
-from datetime import datetime
-import re
+
+import aiofiles
 
 logger = logging.getLogger(__name__)
 
@@ -61,7 +62,8 @@ async def save_markdown(md: str, url: str, out_dir: str):
         output_path.parent.mkdir(parents=True, exist_ok=True)
 
         # YAML front-matter を作成
-        title = slug.replace('-', ' ').replace('_', ' ').capitalize() # スラッグから簡易的なタイトル生成
+        # スラッグから簡易的なタイトル生成
+        title = slug.replace('-', ' ').replace('_', ' ').capitalize()
         current_date = datetime.now().strftime('%Y-%m-%d')
         front_matter = f"---\ntitle: {title}\ndate: {current_date}\nsource: {url}\n---\n\n"
 
