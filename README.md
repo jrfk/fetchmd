@@ -1,3 +1,7 @@
+> [!NOTE]
+> ⚡ Note: This is a vibe coding project. The code is experimental and may evolve rapidly.
+> 
+
 # fetchmd
 
 Fetch web pages and convert them to Markdown.
