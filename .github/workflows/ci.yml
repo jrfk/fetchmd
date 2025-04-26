@@ -18,7 +18,6 @@ jobs:
       with:
         python-version: '3.10'
         # uvを使うのでpipキャッシュは不要
-        cache: 'none'
     
     - name: Install the latest version of uv
       uses: astral-sh/setup-uv@v6
@@ -46,7 +45,6 @@ jobs:
       with:
         python-version: '3.10'
         # uvを使うのでpipキャッシュは不要
-        cache: 'none'
     
     - name: Install the latest version of uv
       uses: astral-sh/setup-uv@v6
