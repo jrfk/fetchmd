@@ -19,8 +19,8 @@ jobs:
         python-version: '3.10'
         cache: 'pip'
     
-    - name: Set up uv
-      uses: astral-sh/setup-uv-action@v2
+    - name: Install the latest version of uv
+      uses: astral-sh/setup-uv@v6
         
     - name: Install dependencies
       run: uv pip install -e ".[all]"
@@ -41,8 +41,8 @@ jobs:
         python-version: '3.10'
         cache: 'pip'
     
-    - name: Set up uv
-      uses: astral-sh/setup-uv-action@v2
+    - name: Install the latest version of uv
+      uses: astral-sh/setup-uv@v6
     
     - name: Install dependencies
       run: uv pip install -e ".[all]"
